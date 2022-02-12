@@ -41,7 +41,7 @@ public class HelloController {
     //returns a message based off of the language that is selected
     @RequestMapping(value = "hello", method = {RequestMethod.POST})
     public static String createMessage(@RequestParam String name,@RequestParam String language) {
-        if (name == null ) {
+        if (name.length() <1 ) {
             name = "World";}
         String greeting = "";
 
