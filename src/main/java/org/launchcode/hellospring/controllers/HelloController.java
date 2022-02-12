@@ -26,7 +26,7 @@ public class HelloController {
     //the current @RequestMapping handles get and post requests at the same time
     //This is dynamic Handler which means it accepts data
     //lives at /hello/hello
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello/{name}")
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello " + name + "!";
     }
@@ -39,29 +39,28 @@ public class HelloController {
 //    }
 
     //returns a message based off of the language that is selected
-    @GetMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "hello", method = {RequestMethod.POST})
     public static String createMessage(@RequestParam String name,@RequestParam String language) {
-        String greeting="";
-        if (name== null){
-            greeting = "World";
-        }else if (language.equals("English")){
-            greeting= "Hello There, ";
-        } else if (language.equals("French")){
-            greeting= "Bonjour mon ami/e, ";
-        } else if (language.equals("German")){
-            greeting= "Hallo mein Freund, ";
-        } else if (language.equals("Spanish")){
-            greeting= "Hola mi amiga/o, ";
-        } else if (language.equals("Swedish")){
-            greeting= "Hej min vän, ";
+        if (name == null ) {
+            name = "World";}
+        String greeting = "";
 
-
-        return greeting + name +"!";
+        if (language.equals("English")) {
+            greeting = "Hello There, ";
+        } else if (language.equals("French")) {
+            greeting = "Bonjour mon ami/e, ";
+        } else if (language.equals("German")) {
+            greeting = "Hallo mein Freund, ";
+        } else if (language.equals("Spanish")) {
+            greeting = "Hola mi amiga/o, ";
+        } else if (language.equals("Swedish")) {
+            greeting = "Hej min vän, ";
+        }
+            return greeting + name + "!";
     }
-
     ///This form works because we already have a handler method created that accepts "name" and tells it what to do with "name"
    //Lives at /hello/form
-    @GetMapping(value="form", method = {RequestMethod.GET})
+    @RequestMapping(value="form", method = {RequestMethod.GET})
     public String helloForm(){
         return"<html>" +
                 "<body>" +
